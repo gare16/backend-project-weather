@@ -2,8 +2,8 @@ import express from "express";
 import bodyParser from "body-parser";
 import cors from "cors";
 import weatherRouter from "./routes/weather.routes.js";
-import { mongoConnection } from "./api/mongoDB/mongoSupport.js";
-import { MqttConnection } from "./api/mqtt/mqttSupport.js";
+// import { mongoConnection } from "./api/mongoDB/mongoSupport.js";
+// import { MqttConnection } from "./api/mqtt/mqttSupport.js";
 import path from "path";
 import { fileURLToPath } from "url";
 import dotenv from "dotenv";
@@ -27,7 +27,17 @@ app.use(
 app.use(bodyParser.json());
 app.use(weatherRouter);
 
-mongoConnection();
-MqttConnection();
+app.get("/", (req, res) => {
+  res.send("Hello");
+});
+
+app.get("/api", (req, res) => {
+  res.status(200).json({
+    message: "hello",
+  });
+});
+
+// mongoConnection();
+// MqttConnection();
 
 app.listen(port, () => console.log(`Server up to ${port}`));
